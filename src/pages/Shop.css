@@ -1,0 +1,26 @@
+.shop-page {
+  padding: 4rem 2rem;
+  min-height: 70vh;
+}
+
+.shop-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.shop-header h1 {
+  color: var(--color-brown);
+  margin-bottom: 1rem;
+}
+
+.shop-subtitle {
+  max-width: 600px;
+  margin: 0 auto;
+  font-size: 1.1rem;
+  opacity: 0.8;
+  color: var(--color-brown);
+}
+
+.shop-grid {
+  margin-bottom: 4rem;
+}
