@@ -92,3 +92,25 @@
   font-weight: 600;
   color: var(--color-gold);
 }
+
+.product-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(8px);
+  color: var(--color-brown);
+  padding: 0.35rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  box-shadow: 0 4px 12px rgba(90, 62, 54, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-family: var(--font-body);
+  animation: fadeIn 0.4s ease;
+}

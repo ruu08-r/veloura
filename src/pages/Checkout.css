@@ -187,3 +187,133 @@
     display: flex;
   }
 }
+
+/* Instagram Direct Checkout Styling */
+.instagram-dm-checkout-card {
+  background: linear-gradient(135deg, rgba(253, 244, 245, 0.9) 0%, rgba(245, 230, 233, 0.9) 100%);
+  border: 1px solid rgba(198, 167, 105, 0.25);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 2.5rem;
+  box-shadow: 0 4px 15px rgba(198, 167, 105, 0.08);
+  position: relative;
+  overflow: hidden;
+}
+
+.instagram-dm-checkout-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, #f3a183, #ec38bc);
+}
+
+.insta-card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.insta-card-header h4 {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  color: var(--color-brown);
+  margin: 0;
+  letter-spacing: 0.5px;
+}
+
+.instagram-dm-checkout-card p {
+  font-size: 0.9rem;
+  color: var(--color-brown);
+  opacity: 0.85;
+  line-height: 1.5;
+  margin-bottom: 1.25rem;
+}
+
+.insta-help-text {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--color-brown);
+  opacity: 0.6;
+  text-align: center;
+  margin-top: 0.5rem;
+}
+
+.insta-dm-btn {
+  background: linear-gradient(90deg, #f857a6, #ff5858);
+  border: none;
+  color: white;
+  padding: 1rem;
+  border-radius: 4px;
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.insta-dm-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(248, 87, 166, 0.3);
+}
+
+.insta-dm-btn-small {
+  background: linear-gradient(90deg, #f857a6, #ff5858);
+  border: none;
+  color: white;
+  padding: 0.85rem;
+  border-radius: 4px;
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.insta-dm-btn-small:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(248, 87, 166, 0.3);
+}
+
+/* Toast Notification Styling */
+.veloura-toast {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: linear-gradient(135deg, #5a3e36 0%, #3e2723 100%);
+  color: white;
+  padding: 1.25rem 2rem;
+  border-radius: 30px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  border: 1px solid rgba(198, 167, 105, 0.3);
+  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.5s ease;
+  opacity: 0;
+  pointer-events: none;
+  width: max-content;
+  max-width: 90vw;
+}
+
+.veloura-toast.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.toast-icon {
+  font-size: 1.5rem;
+}
+
+.toast-message {
+  font-size: 0.95rem;
+  letter-spacing: 0.5px;
+}

@@ -40,6 +40,11 @@ const CartDrawer: React.FC = () => {
                 <img src={item.image} alt={item.name} className="cart-item-image" />
                 <div className="cart-item-details">
                   <h4>{item.name}</h4>
+                  {item.size && (
+                    <p className="cart-item-size" style={{ fontSize: '0.8rem', opacity: 0.7, marginBottom: '0.25rem', color: 'var(--color-brown)' }}>
+                      Size: {item.size}
+                    </p>
+                  )}
                   <p className="cart-item-price">₹{item.price}</p>
                   <div className="quantity-controls">
                     <button onClick={() => updateQuantity(item.id, item.quantity - 1)}>

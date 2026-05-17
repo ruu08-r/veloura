@@ -11,6 +11,10 @@ const ProductDetail: React.FC = () => {
   const [quantity, setQuantity] = useState(1);
   const [activeTab, setActiveTab] = useState('description');
 
+  // Find default size (prefer Best Seller, otherwise first size)
+  const defaultSizeObj = product ? (product.sizes.find(s => s.isBestSeller) || product.sizes[0]) : null;
+  const [selectedSize, setSelectedSize] = useState(defaultSizeObj ? defaultSizeObj.size : '');
+
   if (!product) {
     return (
       <div className="container" style={{ padding: '6rem 2rem', textAlign: 'center' }}>
@@ -20,13 +24,17 @@ const ProductDetail: React.FC = () => {
     );
   }
 
+  const currentSizeObj = product.sizes.find(s => s.size === selectedSize) || product.sizes[0];
+  const currentPrice = currentSizeObj.price;
+
   const handleAddToCart = () => {
     addToCart({
-      id: product.id,
+      id: `${product.id}-${selectedSize.replace(/\s+/g, '')}`,
       name: product.name,
-      price: product.price,
+      price: currentPrice,
       image: product.image,
       quantity,
+      size: selectedSize,
     });
   };
 
@@ -40,9 +48,31 @@ const ProductDetail: React.FC = () => {
         </div>
 
         <div className="product-info-section">
+          {product.badge && <div className="product-detail-badge">{product.badge}</div>}
           <h1 className="heading-lg">{product.name}</h1>
-          <p className="price">₹{product.price}</p>
+          <p className="price">₹{currentPrice}</p>
           <p className="short-desc">{product.shortDesc}</p>
+
+          {/* Size Selector */}
+          <div className="size-selector-section">
+            <span className="size-label">Select Size:</span>
+            <div className="size-options">
+              {product.sizes.map((s) => (
+                <button
+                  key={s.size}
+                  type="button"
+                  className={`size-btn ${selectedSize === s.size ? 'active' : ''}`}
+                  onClick={() => setSelectedSize(s.size)}
+                >
+                  <div className="size-btn-left">
+                    <span className="size-text">{s.size}</span>
+                    {s.isBestSeller && <span className="size-bestseller-badge">Best Seller</span>}
+                  </div>
+                  <span className="size-price-tag">₹{s.price}</span>
+                </button>
+              ))}
+            </div>
+          </div>
 
           <div className="add-to-cart-section">
             <div className="quantity-selector">
@@ -51,7 +81,7 @@ const ProductDetail: React.FC = () => {
               <button onClick={() => setQuantity(q => q + 1)}>+</button>
             </div>
             <button className="btn-primary full-width" onClick={handleAddToCart}>
-              Add to Cart - ₹{product.price * quantity}
+              Add to Cart - ₹{currentPrice * quantity}
             </button>
           </div>
 

@@ -5,7 +5,23 @@ import './Checkout.css';
 
 const Checkout: React.FC = () => {
   const { cart, cartTotal } = useCart();
-  const [paymentMethod, setPaymentMethod] = useState('upi');
+  const [paymentMethod, setPaymentMethod] = useState('instagram');
+  const [showToast, setShowToast] = useState(false);
+
+  const handleInstagramCheckout = () => {
+    const cartDetails = cart.map(item => `- ${item.name}${item.size ? ` (${item.size})` : ''} (Qty: ${item.quantity}) - ₹${item.price * item.quantity}`).join('\n');
+    const textToCopy = `🌸 *Veloura Order Request* 🌸\n\n🛍️ *Items in Cart:*\n${cartDetails}\n\n💳 *Grand Total:* ₹${cartTotal}\n\n✨ Please arrange delivery for me!`;
+    
+    navigator.clipboard.writeText(textToCopy).then(() => {
+      setShowToast(true);
+      setTimeout(() => {
+        setShowToast(false);
+        window.open("https://www.instagram.com/rii_yaaaa_._/", "_blank");
+      }, 3000);
+    }).catch(err => {
+      console.error("Failed to copy cart details:", err);
+    });
+  };
 
   if (cart.length === 0) {
     return (
@@ -22,6 +38,23 @@ const Checkout: React.FC = () => {
       
       <div className="checkout-grid">
         <div className="checkout-form-section">
+          {/* Quick Instagram DM checkout card */}
+          <div className="instagram-dm-checkout-card">
+            <div className="insta-card-header">
+              <span className="insta-icon">📸</span>
+              <h4>✨ Direct Instagram DM Order</h4>
+            </div>
+            <p>Skip filling forms! Order directly with Riya on Instagram. One click copies your cart details and opens DM to complete your checkout instantly.</p>
+            <button 
+              type="button"
+              className="insta-dm-btn full-width"
+              onClick={handleInstagramCheckout}
+            >
+              Copy Cart & Order via Instagram DM
+            </button>
+            <span className="insta-help-text">Auto-copies items to clipboard & opens DM to @rii_yaaaa_._.</span>
+          </div>
+
           {/* Shipping Form */}
           <div className="form-group">
             <h3 className="section-title-small">Shipping Information</h3>
@@ -41,15 +74,15 @@ const Checkout: React.FC = () => {
           <div className="form-group">
             <h3 className="section-title-small">Payment Method</h3>
             <div className="payment-options">
-              <label className={`payment-label ${paymentMethod === 'upi' ? 'active' : ''}`}>
+              <label className={`payment-label ${paymentMethod === 'instagram' ? 'active' : ''}`}>
                 <input 
                   type="radio" 
                   name="payment" 
-                  value="upi" 
-                  checked={paymentMethod === 'upi'}
-                  onChange={() => setPaymentMethod('upi')}
+                  value="instagram" 
+                  checked={paymentMethod === 'instagram'}
+                  onChange={() => setPaymentMethod('instagram')}
                 />
-                UPI (GPay, PhonePe, Paytm)
+                ✨ Order & Pay via Instagram DM (Direct Chat)
               </label>
               <label className={`payment-label ${paymentMethod === 'card' ? 'active' : ''}`}>
                 <input 
@@ -74,11 +107,17 @@ const Checkout: React.FC = () => {
             </div>
 
             {/* Payment Details UI based on selection */}
-            {paymentMethod === 'upi' && (
-              <div className="payment-details upi-details">
-                <p>Enter your UPI ID to receive a payment request.</p>
-                <input type="text" placeholder="example@upi" className="form-input" />
-                <p className="note">Or scan QR code on the next step (Placeholder for Razorpay/Cashfree integration).</p>
+            {paymentMethod === 'instagram' && (
+              <div className="payment-details instagram-details">
+                <p>Complete your purchase directly with Riya on Instagram. We'll verify your cart and guide you through the payment in direct chat.</p>
+                <button 
+                  type="button"
+                  className="insta-dm-btn-small" 
+                  onClick={handleInstagramCheckout}
+                  style={{ width: '100%' }}
+                >
+                  Copy Cart & DM @rii_yaaaa_._
+                </button>
               </div>
             )}
             
@@ -115,6 +154,11 @@ const Checkout: React.FC = () => {
                   </div>
                   <div className="summary-item-info">
                     <h4>{item.name}</h4>
+                    {item.size && (
+                      <p className="summary-item-size" style={{ fontSize: '0.8rem', opacity: 0.7, margin: '0.2rem 0', color: 'var(--color-brown)' }}>
+                        Size: {item.size}
+                      </p>
+                    )}
                     <p>₹{item.price}</p>
                   </div>
                 </div>
@@ -142,6 +186,12 @@ const Checkout: React.FC = () => {
             </div>
           </div>
         </div>
+      </div>
+
+      {/* Premium Toast Notification */}
+      <div className={`veloura-toast ${showToast ? 'show' : ''}`}>
+        <span className="toast-icon">✨</span>
+        <span className="toast-message">Order details copied to clipboard! Opening Instagram DM... 💖</span>
       </div>
     </div>
   );

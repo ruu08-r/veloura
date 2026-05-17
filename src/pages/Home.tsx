@@ -5,7 +5,8 @@ import { products } from '../data';
 import './Home.css';
 
 const Home: React.FC = () => {
-  const featuredProducts = products.filter(p => ['golden-rio', 'moon-glow', 'rose-cloud'].includes(p.id));
+  // Show all products on the home page so the user sees everything immediately
+  const featuredProducts = products;
 
   return (
     <div className="home-page animate-fade-in">

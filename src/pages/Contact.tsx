@@ -13,7 +13,7 @@ const Contact: React.FC = () => {
           <ul style={{ listStyle: 'none', padding: 0, marginTop: '2rem', lineHeight: '2' }}>
             <li><strong>Email:</strong> hello@veloura.com</li>
             <li><strong>Phone:</strong> +91 98765 43210</li>
-            <li><strong>Instagram:</strong> @velourabydhanwani</li>
+            <li><strong>Instagram:</strong> <a href="https://www.instagram.com/rii_yaaaa_._/" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'underline' }}>@rii_yaaaa_._</a></li>
           </ul>
         </div>
         
